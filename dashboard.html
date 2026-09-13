@@ -73,50 +73,105 @@
         </main>
     </div>
 
-    <!-- Modal para Visualização de PDF Fullscreen -->
-    <div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column;">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0A0A0A; border-bottom: 1px solid var(--color-primary); flex-wrap: wrap; gap: 10px;">
+    <!-- Biblioteca PDF.js para renderizar PDF no Canvas (Funciona 100% em Mobile) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    </script>
+
+    <!-- Modal Visualizador de PDF Avançado (Cross-platform) -->
+    <div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0A0A0A; z-index: 9999; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #111; border-bottom: 1px solid var(--color-primary); flex-wrap: wrap; gap: 10px;">
             <span style="color: var(--color-primary); font-weight: bold; font-size: 16px;">📚 Material do Curso</span>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <a id="pdfDownloadLink" href="#" target="_blank" style="color: #000; background: var(--color-primary); text-decoration: none; font-size: 13px; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: none;">Abrir Externo / Baixar</a>
-                <button id="closePdfModal" style="background: transparent; color: white; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: color 0.3s;">
-                    ✖ Fechar
-                </button>
+            
+            <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 20px;">
+                <button id="prevPage" style="background: transparent; color: var(--color-primary); border: none; font-size: 18px; cursor: pointer; padding: 0 10px;">◀</button>
+                <span style="color: white; font-size: 14px;">Pág <span id="pageNum">1</span> de <span id="pageCount">?</span></span>
+                <button id="nextPage" style="background: transparent; color: var(--color-primary); border: none; font-size: 18px; cursor: pointer; padding: 0 10px;">▶</button>
             </div>
+
+            <button id="closePdfModal" style="background: transparent; color: white; border: none; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                ✖ Fechar
+            </button>
         </div>
-        <!-- Wrapper especial para tentar forçar scroll no iOS caso o modal abra -->
-        <div style="flex: 1; width: 100%; height: 100%; position: relative; overflow: auto; -webkit-overflow-scrolling: touch;">
-            <iframe id="pdfIframe" src="" style="width: 100%; height: 99%; border: none; background: #1a1a1a;"></iframe>
+        <div id="pdfContainer" style="flex: 1; overflow: auto; text-align: center; padding: 20px; background: #1a1a1a; -webkit-overflow-scrolling: touch;">
+            <canvas id="pdfCanvas" style="max-width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.5);"></canvas>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const closePdfModal = document.getElementById('closePdfModal');
-            if(closePdfModal) {
-                closePdfModal.addEventListener('click', () => {
-                    document.getElementById('pdfModal').style.display = 'none';
-                    document.getElementById('pdfIframe').src = '';
+        let pdfDoc = null,
+            pageNum = 1,
+            pageIsRendering = false,
+            pageNumIsPending = null;
+
+        const canvas = document.getElementById('pdfCanvas'),
+              ctx = canvas.getContext('2d');
+
+        const renderPage = num => {
+            pageIsRendering = true;
+            pdfDoc.getPage(num).then(page => {
+                // Ajusta escala baseada no tamanho da tela
+                const isMobile = window.innerWidth <= 768;
+                const scale = isMobile ? (window.innerWidth / page.getViewport({ scale: 1 }).width) * 0.95 : 1.5;
+                const viewport = page.getViewport({ scale });
+                
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderCtx = { canvasContext: ctx, viewport };
+
+                page.render(renderCtx).promise.then(() => {
+                    pageIsRendering = false;
+                    if (pageNumIsPending !== null) {
+                        renderPage(pageNumIsPending);
+                        pageNumIsPending = null;
+                    }
                 });
-            }
-        });
-        
-        window.openPdfModal = function(url) {
-            // Detecção robusta de dispositivos móveis
-            const isMobile = window.innerWidth <= 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            
-            if (isMobile) {
-                // Em celulares (iOS e Android), iframes de PDF bugam nativamente (só mostram a 1ª página ou não abrem).
-                // A única forma nativa e limpa é abrir diretamente no leitor de PDF do celular.
-                window.open(url, '_blank');
+                document.getElementById('pageNum').textContent = num;
+            });
+        };
+
+        const queueRenderPage = num => {
+            if (pageIsRendering) {
+                pageNumIsPending = num;
             } else {
-                // No Desktop, exibe o Modal Fullscreen maravilhoso
-                document.getElementById('pdfIframe').src = url;
-                document.getElementById('pdfDownloadLink').href = url;
-                document.getElementById('pdfDownloadLink').style.display = 'block'; // Mostra botão de backup
-                document.getElementById('pdfModal').style.display = 'flex';
+                renderPage(num);
             }
-        }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('prevPage').addEventListener('click', () => {
+                if (pageNum <= 1) return;
+                pageNum--;
+                queueRenderPage(pageNum);
+            });
+
+            document.getElementById('nextPage').addEventListener('click', () => {
+                if (pageNum >= pdfDoc.numPages) return;
+                pageNum++;
+                queueRenderPage(pageNum);
+            });
+
+            document.getElementById('closePdfModal').addEventListener('click', () => {
+                document.getElementById('pdfModal').style.display = 'none';
+            });
+        });
+
+        // Função para abrir o PDF (mantive o nome downloadMaterial para aproveitar o botão)
+        window.downloadMaterial = function(url) {
+            document.getElementById('pdfModal').style.display = 'flex';
+            
+            // Renderiza o PDF
+            pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
+                pdfDoc = pdfDoc_;
+                document.getElementById('pageCount').textContent = pdfDoc.numPages;
+                pageNum = 1;
+                renderPage(pageNum);
+            }).catch(err => {
+                alert('Erro ao carregar o PDF. Ele pode estar corrompido ou inacessível.');
+            });
+        };
     </script>
 
     <!-- Scripts de cada aba serão incluídos aqui conforme criados -->

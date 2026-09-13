@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span style="color: var(--color-text-secondary); font-size: 13px; display: flex; align-items: center; gap: 5px;">
                                 🕒 ${curso.duration}
                             </span>
-                            <button onclick="${curso.fileLink ? `window.openPdfModal('${curso.fileLink}')` : `alert('Funcionalidade: Redirecionaria para o player de vídeo do curso: ${curso.title}')`}" style="background: var(--color-primary); color: var(--color-bg-primary); border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 14px;">${curso.fileLink ? 'Abrir Material' : 'Assistir'}</button>
+                            <button onclick="${curso.fileLink ? `window.downloadMaterial('${curso.fileLink}')` : `alert('Funcionalidade: Redirecionaria para o player de vídeo do curso: ${curso.title}')`}" style="background: var(--color-primary); color: var(--color-bg-primary); border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 14px;">${curso.fileLink ? '📖 Ler Material' : 'Assistir'}</button>
                         </div>
                     </div>
                 </div>
