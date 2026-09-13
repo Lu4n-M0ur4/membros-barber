@@ -1,0 +1,133 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Dados dos cursos solicitados
+    const cursosData = [
+        {
+            id: 1,
+            title: "Mapa do Degradê +30",
+            category: "Técnicas",
+            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Degrad%C3%AA++30",
+            description: "Aprenda a fazer o fade perfeito de forma consistente e rápida, compreendendo as 30 variações.",
+            duration: "Material em PDF",
+            fileLink: "assets/Mapeamento_Crew_Cut_com_Fade_20260912212032.pdf"
+        },
+        {
+            id: 2,
+            title: "SOS Marca",
+            category: "Gestão e Marca",
+            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=SOS+Marca",
+            description: "Posicionamento de mercado, estruturação da sua marca pessoal e como atrair os clientes certos.",
+            duration: "Material em PDF",
+            fileLink: "assets/Retirar%20marca.pdf"
+        },
+        {
+            id: 3,
+            title: "Mapa de Pentes e Regulagens",
+            category: "Equipamentos",
+            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Pentes+e+Regulagens",
+            description: "Domine todas as alturas, marcações e a alavanca da sua máquina sem complicação.",
+            duration: "50m"
+        },
+        {
+            id: 4,
+            title: "Checklist Final do Degradê",
+            category: "Técnicas",
+            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Checklist+Final",
+            description: "Os ajustes finais e detalhes que separam um corte bom de um corte excepcional (padrão gringo).",
+            duration: "Material em PDF",
+            fileLink: "assets/Scientific_Fade_Mastery.pdf"
+        },
+        {
+            id: 5,
+            title: "Mapa das Zonas",
+            category: "Técnicas",
+            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Mapa+das+Zonas",
+            description: "Compreenda as zonas da cabeça, áreas de recessão e coroa para criar cortes harmônicos.",
+            duration: "Material em PDF",
+            fileLink: "assets/Arquitetura_do_Low_Fade.pdf"
+        }
+    ];
+
+    // Função que renderiza a aba de cursos
+    const renderCursosTab = (container) => {
+        let html = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                <h2 style="color: var(--color-primary); font-size: 24px;">Meus Módulos</h2>
+                <div style="display: flex; gap: 10px; width: 100%; max-width: 300px;">
+                    <input type="text" id="searchCurso" placeholder="Buscar conteúdo..." style="width: 100%; padding: 12px 15px; border-radius: var(--border-radius); border: 1px solid var(--color-border); background: var(--color-bg-primary); color: var(--color-text-primary); transition: var(--transition);">
+                </div>
+            </div>
+            
+            <div class="grid-container" id="cursosGrid">
+                <!-- Cursos injetados via JS -->
+            </div>
+        `;
+
+        container.innerHTML = html;
+
+        const grid = document.getElementById('cursosGrid');
+        const searchInput = document.getElementById('searchCurso');
+
+        const renderGrid = (cursos) => {
+            if(cursos.length === 0) {
+                grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">
+                    <h3>Nenhum conteúdo encontrado</h3>
+                    <p>Tente buscar com outras palavras.</p>
+                </div>`;
+                return;
+            }
+
+            grid.innerHTML = cursos.map(curso => `
+                <div class="card" style="display: flex; flex-direction: column;">
+                    <img src="${curso.image}" alt="${curso.title}" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--color-border);">
+                    <div style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
+                        <div style="margin-bottom: 10px;">
+                            <span style="background: rgba(212, 175, 55, 0.1); color: var(--color-primary); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">${curso.category}</span>
+                        </div>
+                        <h3 style="color: var(--color-text-primary); margin: 0 0 10px 0; font-size: 18px; line-height: 1.3;">${curso.title}</h3>
+                        <p style="color: var(--color-text-secondary); font-size: 14px; margin-bottom: 24px; line-height: 1.5; flex: 1;">${curso.description}</p>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                            <span style="color: var(--color-text-secondary); font-size: 13px; display: flex; align-items: center; gap: 5px;">
+                                🕒 ${curso.duration}
+                            </span>
+                            <button onclick="${curso.fileLink ? `window.openPdfModal('${curso.fileLink}')` : `alert('Funcionalidade: Redirecionaria para o player de vídeo do curso: ${curso.title}')`}" style="background: var(--color-primary); color: var(--color-bg-primary); border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 14px;">${curso.fileLink ? 'Abrir Material' : 'Assistir'}</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        // Renderiza lista inicial
+        renderGrid(cursosData);
+
+        // Funcionalidade de Busca
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = cursosData.filter(c => 
+                c.title.toLowerCase().includes(term) || 
+                c.description.toLowerCase().includes(term)
+            );
+            renderGrid(filtered);
+        });
+        
+        // Estilo pro hover do botão
+        const buttons = grid.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'translateY(-2px)';
+                btn.style.backgroundColor = 'var(--color-accent)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0)';
+                btn.style.backgroundColor = 'var(--color-primary)';
+            });
+        });
+    };
+
+    // Registra a aba no app principal (com um pequeno timeout para garantir que o app.js já inicializou a função global)
+    setTimeout(() => {
+        if(window.registerTab) {
+            window.registerTab('cursos', 'Aulas e Módulos', '📚', renderCursosTab);
+        }
+    }, 100);
+});

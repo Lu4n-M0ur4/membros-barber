@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Membros Barber</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo" style="text-align: center; margin-bottom: 25px;">
+                <img src="assets/capa.jpg" alt="Capa Membros Barber" style="max-width: 100%; max-height: 250px; object-fit: contain; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                E-mail não cadastrado.
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required placeholder="admin@teste.com">
+                </div>
+                
+                <div class="form-options" style="margin-bottom: 20px;">
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="rememberMe">
+                        <span style="color: var(--color-text-secondary);">Lembrar meu e-mail</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-primary">Entrar na Área de Membros</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

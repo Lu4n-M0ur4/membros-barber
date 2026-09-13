@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área de Membros - Membros Barber</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" style="padding: 20px; justify-content: center; position: relative; border-bottom: 1px solid var(--color-border);">
+                <input type="file" id="coverUpload" accept="image/*" style="display: none;">
+                <label for="coverUpload" style="cursor: pointer; position: relative; display: block; width: 100%;">
+                    <img id="sidebarLogo" src="https://placehold.co/400x300/0A0A0A/D4AF37?text=SUA+CAPA+AQUI" alt="Logo Membros Barber" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: var(--transition);">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); border-radius: 8px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); color: white; font-size: 13px; font-weight: bold; text-transform: uppercase;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0">
+                        Alterar Capa
+                    </div>
+                </label>
+                <button class="mobile-toggle close-sidebar" id="closeSidebar" style="color: var(--color-text-secondary); position: absolute; right: 10px; top: 10px; background: rgba(0,0,0,0.5); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10;">✕</button>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <!-- Abas serão geradas aqui dinamicamente -->
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">A</div>
+                    <div class="user-info">
+                        <h4 id="userName">Carregando...</h4>
+                        <p id="userRole">Membro</p>
+                    </div>
+                </div>
+                <button class="btn-logout" id="btnLogout">Sair da Conta</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <button class="mobile-toggle" id="openSidebar">☰</button>
+                <div class="breadcrumb" id="breadcrumb">
+                    Área de Membros > <span id="currentTabName">Início</span>
+                </div>
+            </header>
+
+            <!-- Banner (usando imagem escura/dourada inspirada na capa) -->
+            <div class="banner">
+                <div class="banner-content">
+                    <h1 id="bannerTitle">Bem-vindo à Membros Barber</h1>
+                    <p id="bannerDesc">O guia definitivo para o fade perfeito e a gestão do seu salão.</p>
+                </div>
+            </div>
+
+            <!-- Área de renderização das abas -->
+            <div class="content-area" id="contentArea">
+                <div class="empty-state">
+                    <h3>Carregando Plataforma...</h3>
+                    <p>Preparando seus conteúdos.</p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                &copy; 2026 Membros Barber. Todos os direitos reservados.
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modal para Visualização de PDF Fullscreen -->
+    <div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0A0A0A; border-bottom: 1px solid var(--color-primary);">
+            <span style="color: var(--color-primary); font-weight: bold; font-size: 16px;">📚 Material do Curso</span>
+            <button id="closePdfModal" style="background: transparent; color: white; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: color 0.3s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='white'">
+                ✖ Fechar
+            </button>
+        </div>
+        <iframe id="pdfIframe" src="" style="width: 100%; flex: 1; border: none; background: #1a1a1a;"></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const closePdfModal = document.getElementById('closePdfModal');
+            if(closePdfModal) {
+                closePdfModal.addEventListener('click', () => {
+                    document.getElementById('pdfModal').style.display = 'none';
+                    document.getElementById('pdfIframe').src = '';
+                });
+            }
+        });
+        window.openPdfModal = function(url) {
+            document.getElementById('pdfIframe').src = url;
+            document.getElementById('pdfModal').style.display = 'flex';
+        }
+    </script>
+
+    <!-- Scripts de cada aba serão incluídos aqui conforme criados -->
+    <script src="js/app.js"></script>
+    <script src="js/cursos.js"></script>
+    <script src="js/calculadora.js"></script>
+    <script src="js/agenda.js"></script>
+    <script src="js/downloads.js"></script>
+    <script src="js/suporte.js"></script>
+</body>
+</html>

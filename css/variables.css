@@ -1,0 +1,42 @@
+:root {
+  --color-primary: #D4AF37;
+  --color-secondary: #B8860B;
+  --color-accent: #F9E596;
+  --color-bg-primary: #0A0A0A;
+  --color-bg-secondary: #1A1A1A;
+  --color-bg-card: #1A1A1A;
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #B0B0B0;
+  --color-border: #333333;
+  --color-success: #00C853;
+  --color-warning: #FFB300;
+  --color-error: #FF3D00;
+  --border-radius: 8px;
+  --shadow-card: 0 4px 20px rgba(0,0,0,0.5);
+  --transition: all 0.3s ease;
+  --font-main: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
