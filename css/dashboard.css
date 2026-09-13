@@ -131,6 +131,7 @@ body {
     justify-content: flex-start;
     gap: 15px;
     border-bottom: 1px solid var(--color-border);
+    position: -webkit-sticky; /* Suporte para navegadores Apple/Mobile antigos */
     position: sticky;
     top: 0;
     z-index: 100;
