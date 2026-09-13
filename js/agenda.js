@@ -80,15 +80,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            agendaList.innerHTML = filtered.map(item => `
-                <div style="display: flex; justify-content: space-between; align-items: center; background: var(--color-bg-card); padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-primary); transition: var(--transition);">
+            agendaList.innerHTML = filtered.map(item => {
+                const isRealizado = item.realizado;
+                const borderColor = isRealizado ? '#4CAF50' : 'var(--color-primary)';
+                const opacity = isRealizado ? '0.6' : '1';
+                const textDecoration = isRealizado ? 'line-through' : 'none';
+                
+                return `
+                <div style="display: flex; justify-content: space-between; align-items: center; background: var(--color-bg-card); padding: 16px; border-radius: 8px; border-left: 4px solid ${borderColor}; opacity: ${opacity}; transition: var(--transition);">
                     <div>
-                        <strong style="color: var(--color-text-primary); font-size: 16px; display: block; margin-bottom: 4px;">🕒 ${item.hora} - ${item.nome}</strong>
+                        <strong style="color: var(--color-text-primary); font-size: 16px; display: block; margin-bottom: 4px; text-decoration: ${textDecoration};">🕒 ${item.hora} - ${item.nome}</strong>
                         <span style="color: var(--color-text-secondary); font-size: 13px; background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 4px;">💈 ${item.servico}</span>
                     </div>
-                    <button class="btn-excluir" data-id="${item.id}" style="background: transparent; border: 1px solid var(--color-error); color: var(--color-error); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.3s;">Cancelar</button>
+                    <div style="display: flex; gap: 10px;">
+                        ${!isRealizado ? `<button class="btn-realizar" data-id="${item.id}" style="background: transparent; border: 1px solid #4CAF50; color: #4CAF50; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.3s;">Realizado</button>` : `<span style="color: #4CAF50; font-size: 12px; font-weight: bold; display: flex; align-items: center;">✓ OK</span>`}
+                        <button class="btn-excluir" data-id="${item.id}" data-realizado="${isRealizado}" style="background: transparent; border: 1px solid var(--color-error); color: var(--color-error); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.3s;">${isRealizado ? 'Excluir' : 'Cancelar'}</button>
+                    </div>
                 </div>
-            `).join('');
+            `}).join('');
+
+            document.querySelectorAll('.btn-realizar').forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    btn.style.background = '#4CAF50';
+                    btn.style.color = 'white';
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#4CAF50';
+                });
+                btn.addEventListener('click', (e) => {
+                    const id = e.target.getAttribute('data-id');
+                    let agenda = loadAgenda();
+                    const index = agenda.findIndex(i => i.id === id);
+                    if(index > -1) {
+                        agenda[index].realizado = true;
+                        saveAgenda(agenda);
+                        renderLista();
+                    }
+                });
+            });
 
             document.querySelectorAll('.btn-excluir').forEach(btn => {
                 btn.addEventListener('mouseenter', () => {
@@ -100,7 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.style.color = 'var(--color-error)';
                 });
                 btn.addEventListener('click', (e) => {
-                    if(confirm('Tem certeza que deseja cancelar e remover este cliente da agenda?')) {
+                    const isRealizado = e.target.getAttribute('data-realizado') === 'true';
+                    const msg = isRealizado ? 'Excluir este histórico da agenda?' : 'Tem certeza que deseja cancelar e remover este cliente da agenda?';
+                    if(confirm(msg)) {
                         const id = e.target.getAttribute('data-id');
                         const novaAgenda = loadAgenda().filter(i => i.id !== id);
                         saveAgenda(novaAgenda);
@@ -117,7 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 nome: document.getElementById('agendaNome').value.trim(),
                 servico: document.getElementById('agendaServico').value,
                 data: document.getElementById('agendaData').value,
-                hora: document.getElementById('agendaHora').value
+                hora: document.getElementById('agendaHora').value,
+                realizado: false
             };
             
             let agenda = loadAgenda();
