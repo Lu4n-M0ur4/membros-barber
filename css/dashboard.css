@@ -128,7 +128,8 @@ body {
     padding: 15px 30px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 15px;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -232,5 +233,9 @@ body {
 
     .content-area {
         padding: 20px;
+    }
+
+    .top-header {
+        padding: 15px 20px;
     }
 }

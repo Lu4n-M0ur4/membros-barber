@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const renderDownloadsTab = (container) => {
         const downloads = [
-            { titulo: "Mapeamento Crew Cut com Fade", tipo: "PDF", tamanho: "1.1 MB", link: "assets/Mapeamento_Crew_Cut_com_Fade_20260912212032.pdf" },
-            { titulo: "Guia Retirar Marcas", tipo: "PDF", tamanho: "1.2 MB", link: "assets/Retirar%20marca.pdf" },
-            { titulo: "Guia Completo de Pentes", tipo: "PDF", tamanho: "285 KB", link: "assets/GUIA%20PENTES.pdf" },
-            { titulo: "Scientific Fade Mastery", tipo: "PDF", tamanho: "6.8 MB", link: "assets/Scientific_Fade_Mastery.pdf" },
-            { titulo: "Arquitetura do Low Fade", tipo: "PDF", tamanho: "9.3 MB", link: "assets/Arquitetura_do_Low_Fade.pdf" }
+            { titulo: "Mapa do Degradê +30", tipo: "PDF", tamanho: "1.1 MB", link: "assets/Mapeamento_Crew_Cut_com_Fade_20260912212032.pdf" },
+            { titulo: "SOS Degradê", tipo: "PDF", tamanho: "1.2 MB", link: "assets/Retirar%20marca.pdf" },
+            { titulo: "Mapa de Pentes e Regulagens", tipo: "PDF", tamanho: "285 KB", link: "assets/GUIA%20PENTES.pdf" },
+            { titulo: "Checklist Final do Degradê", tipo: "PDF", tamanho: "6.8 MB", link: "assets/Scientific_Fade_Mastery.pdf" },
+            { titulo: "Mapa das Zonas", tipo: "PDF", tamanho: "9.3 MB", link: "assets/Arquitetura_do_Low_Fade.pdf" }
         ];
 
         let html = `
