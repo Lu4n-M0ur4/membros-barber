@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Preencher dados do usuário
     document.getElementById('userName').textContent = session.name;
-    document.getElementById('userRole').textContent = session.role === 'admin' ? 'Administrador' : 'Aluno';
+    document.getElementById('userRole').textContent = session.email || 'Aluno';
     document.getElementById('userAvatar').textContent = session.name.charAt(0).toUpperCase();
 
     // 3. Logout
