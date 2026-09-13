@@ -21,12 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Mobile Sidebar Toggle
     const sidebar = document.getElementById('sidebar');
-    document.getElementById('openSidebar').addEventListener('click', () => {
+    const openBtn = document.getElementById('openSidebar');
+    
+    openBtn.addEventListener('click', (e) => {
         sidebar.classList.add('open');
+        e.stopPropagation(); // Previne que feche instantaneamente
     });
     
     document.getElementById('closeSidebar').addEventListener('click', () => {
         sidebar.classList.remove('open');
+    });
+
+    // Fechar ao clicar fora (no celular)
+    document.addEventListener('click', (e) => {
+        if (sidebar.classList.contains('open')) {
+            if (!sidebar.contains(e.target) && !openBtn.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        }
     });
 
     // 5. Sistema de Navegação (Abas)
