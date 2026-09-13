@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
             category: "Equipamentos",
             image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Pentes+e+Regulagens",
             description: "Domine todas as alturas, marcações e a alavanca da sua máquina sem complicação.",
-            duration: "50m"
+            duration: "Material em PDF",
+            fileLink: "assets/GUIA%20PENTES.pdf"
         },
         {
             id: 4,
