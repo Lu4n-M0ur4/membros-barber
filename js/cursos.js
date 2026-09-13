@@ -5,17 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 1,
             title: "Mapa do Degradê +30",
             category: "Técnicas",
-            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Degrad%C3%AA++30",
+            image: "assets/apple-touch-icon.png",
             description: "Aprenda a fazer o fade perfeito de forma consistente e rápida, compreendendo as 30 variações.",
             duration: "Material em PDF",
             fileLink: "assets/Mapeamento_Crew_Cut_com_Fade_20260912212032.pdf"
         },
         {
             id: 2,
-            title: "SOS Marca",
-            category: "Gestão e Marca",
-            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=SOS+Marca",
-            description: "Posicionamento de mercado, estruturação da sua marca pessoal e como atrair os clientes certos.",
+            title: "SOS Degradê",
+            category: "Técnicas",
+            image: "assets/sos%20degrade.jpeg",
+            description: "Converta conhecimento mecânico em excelência prática, focando em precisão técnica e controle absoluto do corte.",
             duration: "Material em PDF",
             fileLink: "assets/Retirar%20marca.pdf"
         },
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 3,
             title: "Mapa de Pentes e Regulagens",
             category: "Equipamentos",
-            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Pentes+e+Regulagens",
+            image: "assets/Guia%20pentes.png",
             description: "Domine todas as alturas, marcações e a alavanca da sua máquina sem complicação.",
             duration: "Material em PDF",
             fileLink: "assets/GUIA%20PENTES.pdf"
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 4,
             title: "Checklist Final do Degradê",
             category: "Técnicas",
-            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Checklist+Final",
+            image: "assets/checklis.jpeg",
             description: "Os ajustes finais e detalhes que separam um corte bom de um corte excepcional (padrão gringo).",
             duration: "Material em PDF",
             fileLink: "assets/Scientific_Fade_Mastery.pdf"
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 5,
             title: "Mapa das Zonas",
             category: "Técnicas",
-            image: "https://placehold.co/400x250/1A1A1A/D4AF37?text=Mapa+das+Zonas",
+            image: "assets/map%20zonas.jpg",
             description: "Compreenda as zonas da cabeça, áreas de recessão e coroa para criar cortes harmônicos.",
             duration: "Material em PDF",
             fileLink: "assets/Arquitetura_do_Low_Fade.pdf"
