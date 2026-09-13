@@ -75,13 +75,19 @@
 
     <!-- Modal para Visualização de PDF Fullscreen -->
     <div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column;">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0A0A0A; border-bottom: 1px solid var(--color-primary);">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: #0A0A0A; border-bottom: 1px solid var(--color-primary); flex-wrap: wrap; gap: 10px;">
             <span style="color: var(--color-primary); font-weight: bold; font-size: 16px;">📚 Material do Curso</span>
-            <button id="closePdfModal" style="background: transparent; color: white; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: color 0.3s;" onmouseover="this.style.color='var(--color-primary)'" onmouseout="this.style.color='white'">
-                ✖ Fechar
-            </button>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <a id="pdfDownloadLink" href="#" target="_blank" style="color: #000; background: var(--color-primary); text-decoration: none; font-size: 13px; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: none;">Abrir Externo / Baixar</a>
+                <button id="closePdfModal" style="background: transparent; color: white; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: color 0.3s;">
+                    ✖ Fechar
+                </button>
+            </div>
         </div>
-        <iframe id="pdfIframe" src="" style="width: 100%; flex: 1; border: none; background: #1a1a1a;"></iframe>
+        <!-- Wrapper especial para tentar forçar scroll no iOS caso o modal abra -->
+        <div style="flex: 1; width: 100%; height: 100%; position: relative; overflow: auto; -webkit-overflow-scrolling: touch;">
+            <iframe id="pdfIframe" src="" style="width: 100%; height: 99%; border: none; background: #1a1a1a;"></iframe>
+        </div>
     </div>
 
     <script>
@@ -94,9 +100,22 @@
                 });
             }
         });
+        
         window.openPdfModal = function(url) {
-            document.getElementById('pdfIframe').src = url;
-            document.getElementById('pdfModal').style.display = 'flex';
+            // Detecção robusta de dispositivos móveis
+            const isMobile = window.innerWidth <= 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Em celulares (iOS e Android), iframes de PDF bugam nativamente (só mostram a 1ª página ou não abrem).
+                // A única forma nativa e limpa é abrir diretamente no leitor de PDF do celular.
+                window.open(url, '_blank');
+            } else {
+                // No Desktop, exibe o Modal Fullscreen maravilhoso
+                document.getElementById('pdfIframe').src = url;
+                document.getElementById('pdfDownloadLink').href = url;
+                document.getElementById('pdfDownloadLink').style.display = 'block'; // Mostra botão de backup
+                document.getElementById('pdfModal').style.display = 'flex';
+            }
         }
     </script>
 
