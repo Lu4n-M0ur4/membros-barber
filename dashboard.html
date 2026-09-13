@@ -113,11 +113,20 @@
             pdfDoc.getPage(num).then(page => {
                 // Ajusta escala baseada no tamanho da tela
                 const isMobile = window.innerWidth <= 768;
-                const scale = isMobile ? (window.innerWidth / page.getViewport({ scale: 1 }).width) * 0.95 : 1.5;
-                const viewport = page.getViewport({ scale });
+                const baseScale = isMobile ? (window.innerWidth / page.getViewport({ scale: 1 }).width) * 0.95 : 1.5;
                 
-                canvas.height = viewport.height;
+                // Correção crucial para Celulares e Monitores Alta Definição (Retina)
+                const outputScale = window.devicePixelRatio || 1;
+                
+                const viewport = page.getViewport({ scale: baseScale * outputScale });
+                
+                // Tamanho real da imagem renderizada (alta qualidade)
                 canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                
+                // Tamanho visual na tela (CSS)
+                canvas.style.width = Math.floor(viewport.width / outputScale) + "px";
+                canvas.style.height = Math.floor(viewport.height / outputScale) + "px";
 
                 const renderCtx = { canvasContext: ctx, viewport };
 
