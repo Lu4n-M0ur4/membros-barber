@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Criar sessão de usuário com o e-mail digitado
             const userSession = {
                 email: email,
-                name: 'Aluno VIP',
+                name: 'Aluno',
                 role: 'aluno',
                 loginTime: new Date().getTime()
             };
