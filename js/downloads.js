@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const renderDownloadsTab = (container) => {
         const downloads = [
-            { titulo: "Apostila Completa do Fade", tipo: "PDF", tamanho: "2.4 MB" },
-            { titulo: "Planilha de Precificação Automática", tipo: "XLSX", tamanho: "1.1 MB" },
-            { titulo: "Contrato de Aluguel de Cadeira", tipo: "DOCX", tamanho: "500 KB" },
-            { titulo: "Template de Posts para Instagram", tipo: "ZIP", tamanho: "15 MB" }
+            { titulo: "Mapeamento Crew Cut com Fade", tipo: "PDF", tamanho: "1.1 MB", link: "assets/Mapeamento_Crew_Cut_com_Fade_20260912212032.pdf" },
+            { titulo: "Guia Retirar Marcas", tipo: "PDF", tamanho: "1.2 MB", link: "assets/Retirar%20marca.pdf" },
+            { titulo: "Guia Completo de Pentes", tipo: "PDF", tamanho: "285 KB", link: "assets/GUIA%20PENTES.pdf" },
+            { titulo: "Scientific Fade Mastery", tipo: "PDF", tamanho: "6.8 MB", link: "assets/Scientific_Fade_Mastery.pdf" },
+            { titulo: "Arquitetura do Low Fade", tipo: "PDF", tamanho: "9.3 MB", link: "assets/Arquitetura_do_Low_Fade.pdf" }
         ];
 
         let html = `
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p style="color: var(--color-text-secondary); margin: 0; font-size: 13px;">Tamanho: ${item.tamanho}</p>
                             </div>
                         </div>
-                        <button onclick="alert('Download do arquivo: ${item.titulo}')" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); padding: 8px 24px; border-radius: var(--border-radius); cursor: pointer; font-weight: 600; transition: var(--transition);">Baixar Arquivo</button>
+                        <button onclick="window.forceDownload('${item.link}')" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); padding: 8px 24px; border-radius: var(--border-radius); cursor: pointer; font-weight: 600; transition: var(--transition);">Baixar Arquivo</button>
                     </div>
                 `).join('')}
             </div>

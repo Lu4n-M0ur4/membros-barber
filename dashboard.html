@@ -16,7 +16,7 @@
             <div class="sidebar-header" style="padding: 20px; justify-content: center; position: relative; border-bottom: 1px solid var(--color-border);">
                 <input type="file" id="coverUpload" accept="image/*" style="display: none;">
                 <label for="coverUpload" style="cursor: pointer; position: relative; display: block; width: 100%;">
-                    <img id="sidebarLogo" src="https://placehold.co/400x300/0A0A0A/D4AF37?text=SUA+CAPA+AQUI" alt="Logo Membros Barber" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: var(--transition);">
+                    <img id="sidebarLogo" src="assets/capa.jpg" alt="Logo Membros Barber" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: var(--transition);">
                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); border-radius: 8px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); color: white; font-size: 13px; font-weight: bold; text-transform: uppercase;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0">
                         Alterar Capa
                     </div>
@@ -180,6 +180,17 @@
             }).catch(err => {
                 alert('Erro ao carregar o PDF. Ele pode estar corrompido ou inacessível.');
             });
+        };
+
+        // Função para forçar o download direto do arquivo (usada na aba Downloads)
+        window.forceDownload = function(url) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = url.split('/').pop(); // Extrai o nome do arquivo
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         };
     </script>
 

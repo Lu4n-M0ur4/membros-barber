@@ -105,11 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebarLogo = document.getElementById('sidebarLogo');
     const mainBanner = document.querySelector('.banner');
     
-    // Recupera a imagem salva anteriormente (se houver)
+    // Recupera a imagem salva anteriormente (se houver) ou usa a capa padrão
     const savedCover = localStorage.getItem('membrosBarber_cover');
-    if (savedCover && sidebarLogo && mainBanner) {
-        sidebarLogo.src = savedCover;
-        mainBanner.style.backgroundImage = `url(${savedCover})`;
+    if (sidebarLogo && mainBanner) {
+        if (savedCover) {
+            sidebarLogo.src = savedCover;
+            mainBanner.style.backgroundImage = `url(${savedCover})`;
+        } else {
+            mainBanner.style.backgroundImage = `url(assets/capa.jpg)`;
+        }
     }
 
     // Processa a nova imagem quando o usuário faz upload
