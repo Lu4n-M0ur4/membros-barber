@@ -45,6 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
             description: "Compreenda as zonas da cabeça, áreas de recessão e coroa para criar cortes harmônicos.",
             duration: "Material em PDF",
             fileLink: "assets/Arquitetura_do_Low_Fade.pdf"
+        },
+        {
+            id: 6,
+            title: "Nevou",
+            category: "Técnicas",
+            image: "assets/nevou.jpeg",
+            description: "Aprenda o passo a passo completo para executar o platinado perfeito, o famoso nevou, de forma segura e profissional.",
+            duration: "Material em PDF",
+            fileLink: "assets/nevou.pdf"
         }
     ];
 

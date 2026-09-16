@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { titulo: "SOS Degradê", tipo: "PDF", tamanho: "1.2 MB", link: "assets/Retirar%20marca.pdf" },
             { titulo: "Mapa de Pentes e Regulagens", tipo: "PDF", tamanho: "285 KB", link: "assets/GUIA%20PENTES.pdf" },
             { titulo: "Checklist Final do Degradê", tipo: "PDF", tamanho: "6.8 MB", link: "assets/Scientific_Fade_Mastery.pdf" },
-            { titulo: "Mapa das Zonas", tipo: "PDF", tamanho: "9.3 MB", link: "assets/Arquitetura_do_Low_Fade.pdf" }
+            { titulo: "Mapa das Zonas", tipo: "PDF", tamanho: "9.3 MB", link: "assets/Arquitetura_do_Low_Fade.pdf" },
+            { titulo: "Nevou", tipo: "PDF", tamanho: "2.1 MB", link: "assets/nevou.pdf" }
         ];
 
         let html = `
