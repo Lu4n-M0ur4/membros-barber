@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 6,
             title: "Nevou",
             category: "Técnicas",
-            image: "assets/nevou.jpeg",
+            image: "assets/NEVOU.jpeg",
             description: "Aprenda o passo a passo completo para executar o platinado perfeito, o famoso nevou, de forma segura e profissional.",
             duration: "Material em PDF",
             fileLink: "assets/nevou.pdf"
