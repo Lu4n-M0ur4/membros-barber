@@ -54,6 +54,33 @@ document.addEventListener('DOMContentLoaded', () => {
             description: "Aprenda o passo a passo completo para executar o platinado perfeito, o famoso nevou, de forma segura e profissional.",
             duration: "Material em PDF",
             fileLink: "assets/nevou.pdf"
+        },
+        {
+            id: 7,
+            title: "Barba Perfeita",
+            category: "Técnicas",
+            image: "assets/BARBBA%20PERFEITA%20CAPA.jpeg",
+            description: "Domine as técnicas para um visagismo e acabamento impecáveis, garantindo a barba perfeita para o seu cliente.",
+            duration: "Material em PDF",
+            fileLink: "assets/BARBA%20PERFEITA.pdf"
+        },
+        {
+            id: 8,
+            title: "Fórmula Secreta da Pigmentação",
+            category: "Técnicas",
+            image: "assets/PIGMENTENTACAO%20PERFEITA%20CAPA.jpeg",
+            description: "Aprenda os segredos e as melhores técnicas de pigmentação para um acabamento perfeito, natural e duradouro.",
+            duration: "Material em PDF",
+            fileLink: "assets/FORMULA%20SECRETA%20DA%20PIGMENTA%C3%87%C3%83O.pdf"
+        },
+        {
+            id: 9,
+            title: "Olhar de Mestre",
+            category: "Técnicas",
+            image: "assets/OLHAR%20DE%20MESTRE%20CAPA.jpeg",
+            description: "Desenvolva uma percepção avançada para identificar detalhes e realizar correções precisas em qualquer tipo de sombracelha.",
+            duration: "Material em PDF",
+            fileLink: "assets/OLHAR%20DE%20MESTRE.pdf"
         }
     ];
 

@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
             { titulo: "Mapa de Pentes e Regulagens", tipo: "PDF", tamanho: "285 KB", link: "assets/GUIA%20PENTES.pdf" },
             { titulo: "Checklist Final do Degradê", tipo: "PDF", tamanho: "6.8 MB", link: "assets/Scientific_Fade_Mastery.pdf" },
             { titulo: "Mapa das Zonas", tipo: "PDF", tamanho: "9.3 MB", link: "assets/Arquitetura_do_Low_Fade.pdf" },
-            { titulo: "Nevou", tipo: "PDF", tamanho: "2.1 MB", link: "assets/nevou.pdf" }
+            { titulo: "Nevou", tipo: "PDF", tamanho: "2.1 MB", link: "assets/nevou.pdf" },
+            { titulo: "Barba Perfeita", tipo: "PDF", tamanho: "2.3 MB", link: "assets/BARBA%20PERFEITA.pdf" },
+            { titulo: "Fórmula Secreta da Pigmentação", tipo: "PDF", tamanho: "1.1 MB", link: "assets/FORMULA%20SECRETA%20DA%20PIGMENTA%C3%87%C3%83O.pdf" },
+            { titulo: "Olhar de Mestre", tipo: "PDF", tamanho: "2.5 MB", link: "assets/OLHAR%20DE%20MESTRE.pdf" }
         ];
 
         let html = `
