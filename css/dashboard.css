@@ -12,11 +12,14 @@ body {
 /* Sidebar */
 .sidebar {
     width: 260px;
+    min-width: 260px;
+    flex-shrink: 0;
     background-color: var(--color-bg-secondary);
     border-right: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
     transition: var(--transition);
+    z-index: 1000;
 }
 
 .sidebar-header {
@@ -37,6 +40,7 @@ body {
     flex: 1;
     padding: 20px 0;
     list-style: none;
+    overflow-y: auto;
 }
 
 .nav-item {
@@ -155,6 +159,28 @@ body {
     cursor: pointer;
 }
 
+.close-sidebar {
+    display: none !important;
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.sidebar-overlay.open {
+    display: block;
+    opacity: 1;
+}
+
 /* Banner */
 .banner {
     width: 100%;
@@ -212,14 +238,27 @@ body {
 @media (max-width: 768px) {
     .sidebar {
         position: fixed;
-        left: -260px;
+        left: 0;
+        transform: translateX(-100%);
         top: 0;
         bottom: 0;
-        z-index: 1000;
     }
 
     .sidebar.open {
-        left: 0;
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay {
+        display: block;
+        pointer-events: none;
+    }
+
+    .sidebar-overlay.open {
+        pointer-events: auto;
+    }
+
+    .close-sidebar {
+        display: flex !important;
     }
 
     .mobile-toggle {

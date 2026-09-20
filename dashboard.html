@@ -19,6 +19,9 @@
 </head>
 <body>
     <div class="dashboard-wrapper">
+        <!-- Overlay for Mobile Sidebar -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header" style="padding: 20px; justify-content: center; position: relative; border-bottom: 1px solid var(--color-border);">
@@ -29,7 +32,7 @@
                         Alterar Capa
                     </div>
                 </label>
-                <button class="mobile-toggle close-sidebar" id="closeSidebar" style="color: var(--color-text-secondary); position: absolute; right: 10px; top: 10px; background: rgba(0,0,0,0.5); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10;">✕</button>
+                <button class="mobile-toggle close-sidebar" id="closeSidebar" style="color: var(--color-text-secondary); position: absolute; right: 10px; top: 10px; background: rgba(0,0,0,0.5); width: 30px; height: 30px; border-radius: 50%; align-items: center; justify-content: center; z-index: 10;">✕</button>
             </div>
             
             <ul class="nav-menu" id="navMenu">

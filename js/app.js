@@ -22,21 +22,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Mobile Sidebar Toggle
     const sidebar = document.getElementById('sidebar');
     const openBtn = document.getElementById('openSidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
     
     openBtn.addEventListener('click', (e) => {
         sidebar.classList.add('open');
+        if (sidebarOverlay) sidebarOverlay.classList.add('open');
         e.stopPropagation(); // Previne que feche instantaneamente
     });
     
     document.getElementById('closeSidebar').addEventListener('click', () => {
         sidebar.classList.remove('open');
+        if (sidebarOverlay) sidebarOverlay.classList.remove('open');
     });
 
-    // Fechar ao clicar fora (no celular)
+    // Fechar ao clicar fora (no celular via overlay)
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+    }
+
     document.addEventListener('click', (e) => {
         if (sidebar.classList.contains('open')) {
             if (!sidebar.contains(e.target) && !openBtn.contains(e.target)) {
                 sidebar.classList.remove('open');
+                if (sidebarOverlay) sidebarOverlay.classList.remove('open');
             }
         }
     });
@@ -73,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fechar sidebar no mobile após clicar
                 if (window.innerWidth <= 768) {
                     sidebar.classList.remove('open');
+                    if (sidebarOverlay) sidebarOverlay.classList.remove('open');
                 }
             });
             
